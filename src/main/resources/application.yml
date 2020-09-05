@@ -1,10 +1,11 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/test
-    username: hackathon
-    password: password
-    continue-on-error: true
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://hackathondbserver.database.windows.net:1433
+    username: hackathon@hackathondbserver
+    password: ${DBPASSWORD}
+    continue-on-error: false
+
   jpa:
     hibernate:
       ddl-auto: update
