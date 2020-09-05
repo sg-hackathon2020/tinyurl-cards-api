@@ -1,2 +1,2 @@
-# tinyurl-cards-api
-This API will create new tiny url, provide crud operations on cards.
+# url-cards-api
+This API can do a CRUD operation on cards and can also create tiny URL's
