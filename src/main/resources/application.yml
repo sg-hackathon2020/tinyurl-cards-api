@@ -1,13 +1,16 @@
 spring:
   datasource:
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    url: jdbc:sqlserver://hackathondbserver.database.windows.net:1433
+    url: jdbc:sqlserver://hackathondbserver.database.windows.net:1433;databaseName=db_url_cards_api
     username: hackathon@hackathondbserver
+
     password: ${DBPASSWORD}
     continue-on-error: false
 
   jpa:
     hibernate:
-      ddl-auto: update
-    generate-ddl: true
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    generate-ddl: false
     show-sql: true
