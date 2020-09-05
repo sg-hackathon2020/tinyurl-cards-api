@@ -4,6 +4,7 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/test
     username: hackathon
     password: password
+    continue-on-error: true
   jpa:
     hibernate:
       ddl-auto: update
