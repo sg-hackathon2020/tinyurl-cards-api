@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  codecov: codecov/codecov@1.0.2
+
 jobs:
   build:
     docker:
@@ -9,3 +12,6 @@ jobs:
       - run : mvn test
       - store_artifacts:
           path:  target
+      - codecov/upload:
+          file: {{ coverage_report_filepath }}
+          token: '11163c2d-2384-4178-beda-74d8b11ba064'
