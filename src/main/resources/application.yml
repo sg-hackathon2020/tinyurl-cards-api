@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://hackathondbserver.database.windows.net:1433
+    username: hackathon@hackathondbserver
+    password: ${DBPASSWORD}
+    continue-on-error: false
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    show-sql: true
