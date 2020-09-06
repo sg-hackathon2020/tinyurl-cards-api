@@ -29,11 +29,6 @@ public class UrlServiceImpl implements UrlService {
     @Override
     @Cacheable(cacheNames = "short_url_cache", key = "{#shortUrl}")
     public Url findByShortUrl(String shortUrl) throws UrlNotFoundException {
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException ex) {
-            Thread.currentThread().interrupt();
-        }
         Url url = urlRepository.findByShortUrl(shortUrl).orElseThrow(UrlNotFoundException::new);
         return getUrl(url);
     }
