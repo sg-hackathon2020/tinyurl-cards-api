@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class EncoderServiceImplTest {
 
     @InjectMocks
-    EncoderServiceImpl encoderService;
+    private EncoderServiceImpl encoderService;
 
     @Test
     @DisplayName("When transform is called with null value, the method should throw IllegalArgumentException")

@@ -1,4 +1,4 @@
-package com.rakole.tinyurl.util;
+package com.rakole.tinyurl.factories;
 
 import com.rakole.tinyurl.enums.EncoderType;
 
