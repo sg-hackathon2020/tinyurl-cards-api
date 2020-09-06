@@ -23,10 +23,10 @@ import static org.mockito.Mockito.times;
 @ExtendWith(MockitoExtension.class)
 class UrlServiceImplTest {
     @Mock
-    UrlRepository urlRepository;
+    private UrlRepository urlRepository;
 
     @InjectMocks
-    UrlServiceImpl urlService;
+    private UrlServiceImpl urlService;
 
     @Test
     @DisplayName("When find by id is called, and the Url object is present in DB")
@@ -64,7 +64,8 @@ class UrlServiceImplTest {
         given(urlRepository.save(url)).willReturn(url);
 
         //when
-        urlService.save(url);
+        Url urlSaved = urlService.save(url);
+        assertNotNull(urlSaved);
 
         //then
         then(urlRepository).should(times(1)).save(url);
