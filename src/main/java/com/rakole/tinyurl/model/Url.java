@@ -22,6 +22,7 @@ public class Url implements Serializable {
     private int userId;
     private int groupId;
     private boolean is_active;
+    private String prefix;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

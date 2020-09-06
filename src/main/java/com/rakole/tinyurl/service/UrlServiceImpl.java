@@ -4,6 +4,7 @@ import com.rakole.tinyurl.api.UrlService;
 import com.rakole.tinyurl.exception.UrlNotFoundException;
 import com.rakole.tinyurl.model.Url;
 import com.rakole.tinyurl.repository.UrlRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,6 +27,7 @@ public class UrlServiceImpl implements UrlService {
     }
 
     @Override
+    @Cacheable(cacheNames = "short_url_cache", key = "{#shortUrl}")
     public Url findByShortUrl(String shortUrl) throws UrlNotFoundException {
         Url url = urlRepository.findByShortUrl(shortUrl).orElseThrow(UrlNotFoundException::new);
         return getUrl(url);

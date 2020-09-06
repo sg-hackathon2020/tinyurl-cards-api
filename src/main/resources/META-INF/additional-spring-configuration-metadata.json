@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "custom.cache.ttl",
+      "type": "java.lang.String",
+      "description": "provides a way to set configure cache time to live!"
+    }
+  ]
+}

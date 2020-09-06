@@ -52,7 +52,14 @@
             <artifactId>guava</artifactId>
             <version>29.0-jre</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.hazelcast</groupId>
+            <artifactId>hazelcast</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.hazelcast</groupId>
+            <artifactId>hazelcast-spring</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -127,17 +134,18 @@
                                 <exclude>**/config/**</exclude>
                                 <exclude>**/model/**</exclude>
                                 <exclude>**/exception/**</exclude>
+                                <exclude>**/enums/**</exclude>
                             </excludes>
                         </configuration>
                     </execution>
                 </executions>
-<!--
-                <configuration>
-                    <systemPropertyVariables>
-                        <jacoco-agent.destfile>target/jacoco.exec</jacoco-agent.destfile>
-                    </systemPropertyVariables>
-                </configuration>
--->
+                <!--
+                                <configuration>
+                                    <systemPropertyVariables>
+                                        <jacoco-agent.destfile>target/jacoco.exec</jacoco-agent.destfile>
+                                    </systemPropertyVariables>
+                                </configuration>
+                -->
             </plugin>
         </plugins>
     </build>
