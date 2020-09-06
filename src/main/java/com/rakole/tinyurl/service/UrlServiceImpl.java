@@ -31,7 +31,7 @@ public class UrlServiceImpl implements UrlService {
         return getUrl(url);
     }
 
-    Url getUrl(Url url) throws UrlNotFoundException {
+    protected Url getUrl(Url url) throws UrlNotFoundException {
         if (!url.is_active())
             throw new UrlNotFoundException();
         return url;
