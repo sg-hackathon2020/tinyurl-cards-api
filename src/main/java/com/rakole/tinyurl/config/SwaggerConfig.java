@@ -36,6 +36,3 @@ public class SwaggerConfig {
                 .consumes(DEFAULT_PRODUCES_AND_CONSUMES);
     }
 }
-
-
-/*jdbc:sqlserver://hackathondbserver.database.windows.net:1433;database=hackathonDB;user=hackathon@hackathondbserver;password={your_password_here};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;*/

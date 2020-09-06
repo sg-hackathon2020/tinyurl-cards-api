@@ -122,6 +122,12 @@
                             <dataFile>target/jacoco.exec</dataFile>
                             <!-- Sets the output directory for the code coverage report. -->
                             <outputDirectory>target/my-reports</outputDirectory>
+                            <excludes>
+                                <exclude>com/rakole/tinyurl/model/**/*.class</exclude>
+                                <exclude>**/config/**</exclude>
+                                <exclude>**/model/**</exclude>
+                                <exclude>**/exception/**</exclude>
+                            </excludes>
                         </configuration>
                     </execution>
                 </executions>
