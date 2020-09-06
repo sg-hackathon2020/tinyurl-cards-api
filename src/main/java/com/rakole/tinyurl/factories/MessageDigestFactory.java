@@ -1,4 +1,4 @@
-package com.rakole.tinyurl.util;
+package com.rakole.tinyurl.factories;
 
 import com.rakole.tinyurl.enums.MessageDigestType;
 
@@ -7,7 +7,9 @@ import java.security.NoSuchAlgorithmException;
 
 public class MessageDigestFactory {
     public static MessageDigest getMessageDigest(MessageDigestType messageDigestType) throws NoSuchAlgorithmException {
-        //add a switch statement here in the future when supporting multiple algorithms
-        return MessageDigest.getInstance("md5");
+        if (messageDigestType == null || !messageDigestType.equals(MessageDigestType.MD5))
+            throw new NoSuchAlgorithmException();
+        else
+            return MessageDigest.getInstance("md5");
     }
 }

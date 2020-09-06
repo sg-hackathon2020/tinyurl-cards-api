@@ -1,6 +1,7 @@
 package com.rakole.tinyurl.util;
 
 import com.rakole.tinyurl.enums.EncoderType;
+import com.rakole.tinyurl.factories.EncoderFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

@@ -3,8 +3,8 @@ package com.rakole.tinyurl.service;
 import com.rakole.tinyurl.api.EncoderService;
 import com.rakole.tinyurl.enums.EncoderType;
 import com.rakole.tinyurl.enums.MessageDigestType;
-import com.rakole.tinyurl.util.EncoderFactory;
-import com.rakole.tinyurl.util.MessageDigestFactory;
+import com.rakole.tinyurl.factories.EncoderFactory;
+import com.rakole.tinyurl.factories.MessageDigestFactory;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
