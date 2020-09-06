@@ -14,3 +14,9 @@ spring:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     generate-ddl: false
     show-sql: true
+
+
+
+custom:
+  cache:
+    ttl: 200
