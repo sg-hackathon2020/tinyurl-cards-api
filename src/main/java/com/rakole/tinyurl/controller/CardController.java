@@ -6,6 +6,8 @@ import com.rakole.tinyurl.model.Group;
 import com.rakole.tinyurl.repository.CardRepository;
 import com.rakole.tinyurl.repository.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -73,7 +75,24 @@ public class CardController {
         System.out.println("card received:" + card);
         return "success";
     }
+
+    @GetMapping("/api/v1/groups/cards/{cardId}")
+    @CrossOrigin
+    public Card successGet(@PathVariable int cardId) {
+        return Card.builder().id(cardId)
+                .shortUrl("www.ggl.com")
+                .description("wow this came from there")
+                .title("wow now i can update").build();
+    }
+
+    //http://localhost:8080/api/v1/groups/${groupId}/cards/
+
+    @GetMapping("/api/v1/groups/{groupId}/cards")
+    @CrossOrigin
+    public ResponseEntity<List<Card>> getCardsForAGroup(@PathVariable int groupId) {
+        return new ResponseEntity<>(cardRepository.
+                findAllByGroup(groupRepository.
+                        findById(groupId).get()), HttpStatus.OK);
+    }
 }
 
-
-//    let resourceUrl = `http://localhost:8080/api/v1/groups/${groupId}/cards`;

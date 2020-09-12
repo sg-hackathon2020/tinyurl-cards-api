@@ -19,9 +19,7 @@ public class Card implements Serializable {
     private String description;
     private String shortUrl;
 
-    /*
-        @JsonBackReference
-    */
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "groupId")
     @ToString.Exclude
