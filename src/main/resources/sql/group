@@ -1,0 +1,26 @@
+SELECT *
+FROM sys.Tables;
+
+drop table org_group;
+create table org_group
+(
+    id          int primary key IDENTITY (1,1),
+    groupName   varchar(100),
+    clusterName varchar(100),
+    tribeName   varchar(100),
+    ftName      varchar(100)
+);
+
+drop table card;
+create table card
+(
+    id          int primary key IDENTITY (1,1),
+    title       varchar(50),
+    description varchar(256),
+    shortUrl    varchar(50),
+    groupId     int not null,
+    CONSTRAINT FK_ORG_GROUP_1 FOREIGN KEY (groupId)
+        REFERENCES org_group (id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);

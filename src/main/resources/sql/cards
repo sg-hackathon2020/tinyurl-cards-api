@@ -1,0 +1,32 @@
+create table card(id int IDENTITY (1,1), title varchar(50),
+                   description varchar(256), shortUrl varchar(50));
+
+insert into card(title, description, shortUrl)
+values ('This is google', 'Google is a nice way to search for anything that you want!', 'goog/$3234');
+insert into card(title, description, shortUrl)
+values ('This is google', 'Google is a nice way to search for anything that you want!', 'goog/$3234');
+insert into card(title, description, shortUrl)
+values ('This is google', 'Google is a nice way to search for anything that you want!', 'goog/$3234');
+insert into card(title, description, shortUrl)
+values ('This is google', 'Google is a nice way to search for anything that you want!', 'goog/$3234');
+insert into card(title, description, shortUrl)
+values ('This is facebook',
+        'Facebook is a social network that spreads misinformation,i feel the people that work at facebook are seriously unethical and should!',
+        'Fb/asd33');
+
+insert into card(title, description, shortUrl)
+values ('This is facebook',
+        'Facebook is a social network that spreads misinformation,i feel the people that work at facebook are seriously unethical and should!',
+        'Fb/asd33');
+insert into card(title, description, shortUrl)
+values ('This is facebook',
+        'Facebook is a social network that spreads misinformation,i feel the people that work at facebook are seriously unethical and should!',
+        'Fb/asd33');
+insert into card(title, description, shortUrl)
+values ('This is facebook',
+        'Facebook is a social network that spreads misinformation,i feel the people that work at facebook are seriously unethical and should!',
+        'Fb/asd33');
+insert into card(title, description, shortUrl)
+values ('This is facebook',
+        'Facebook is a social network that spreads misinformation,i feel the people that work at facebook are seriously unethical and should!',
+        'Fb/asd33');
