@@ -8,10 +8,10 @@ import com.rakole.tinyurl.repository.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 public class CardController {
@@ -23,30 +23,35 @@ public class CardController {
 
     @GetMapping("/api/v1/cards")
     @CrossOrigin
+    @PreAuthorize("isAuthenticated()")
     public List<Card> getAllCards() {
         return cardRepository.findAll();
     }
 
     @GetMapping("/api/v1/cards/{id}")
     @CrossOrigin
+    @PreAuthorize("isAuthenticated()")
     public Card getCard(@PathVariable int id) {
         return cardRepository.findById(id).get();
     }
 
     @PostMapping("/api/v1/group")
     @CrossOrigin
+    @PreAuthorize("isAuthenticated()")
     public Group createGroup(@RequestBody Group group) {
         return groupRepository.save(group);
     }
 
     @GetMapping("/api/v1/group")
     @CrossOrigin
+    @PreAuthorize("isAuthenticated()")
     public List<Group> getAllGroups() {
         return groupRepository.findAll();
     }
 
     @GetMapping("/api/v1/testMany")
     @CrossOrigin
+    @PreAuthorize("isAuthenticated()")
     public String test() {
         Group group = groupRepository
                 .save(Group.builder().clusterName("test").build());
@@ -57,6 +62,7 @@ public class CardController {
 
     @GetMapping("/api/v1/testPull")
     @CrossOrigin
+    @PreAuthorize("isAuthenticated()")
     public String test2() {
         Group group = groupRepository.findById(1).get();
         System.out.println(group);
@@ -70,6 +76,7 @@ public class CardController {
 
     @PostMapping("/api/v1/groups/{groupId}/cards")
     @CrossOrigin
+    @PreAuthorize("isAuthenticated()")
     public String success(@PathVariable int groupId, @RequestBody Card card) {
         System.out.println("Group id received:" + groupId);
         System.out.println("card received:" + card);
@@ -78,6 +85,7 @@ public class CardController {
 
     @GetMapping("/api/v1/groups/cards/{cardId}")
     @CrossOrigin
+    @PreAuthorize("isAuthenticated()")
     public Card successGet(@PathVariable int cardId) {
         return Card.builder().id(cardId)
                 .shortUrl("www.ggl.com")
@@ -89,6 +97,7 @@ public class CardController {
 
     @GetMapping("/api/v1/groups/{groupId}/cards")
     @CrossOrigin
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<Card>> getCardsForAGroup(@PathVariable int groupId) {
         return new ResponseEntity<>(cardRepository.
                 findAllByGroup(groupRepository.
