@@ -11,4 +11,5 @@ public class UserAdminView {
     private int id;
     @EqualsAndHashCode.Exclude
     private boolean isAdmin;
+    private int groupId;
 }

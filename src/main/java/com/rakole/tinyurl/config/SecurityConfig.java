@@ -1,8 +1,8 @@
 package com.rakole.tinyurl.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rakole.tinyurl.firebase.SecurityFilter;
 import com.rakole.tinyurl.model.security.SecurityProperties;
+import com.rakole.tinyurl.utils.SecurityFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;

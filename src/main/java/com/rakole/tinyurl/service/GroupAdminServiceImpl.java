@@ -31,7 +31,7 @@ public class GroupAdminServiceImpl implements GroupAdminService {
 
         Set<UserAdminView> currentAdmins = group.getAdmins().stream()
                 .map(user -> UserAdminView.builder().id(user.getId())
-                        .email(user.getEmail()).isAdmin(true).build())
+                        .email(user.getEmail()).isAdmin(true).groupId(groupId).build())
                 .collect(Collectors.toSet());
 
         List<TUser> allUsers = tUserService.getAllUsers();
@@ -40,7 +40,7 @@ public class GroupAdminServiceImpl implements GroupAdminService {
                 .map(user -> UserAdminView.builder()
                         .isAdmin(false)
                         .email(user.getEmail())
-                        .id(user.getId()).build()).collect(Collectors.toSet())
+                        .id(user.getId()).groupId(groupId).build()).collect(Collectors.toSet())
 
         );
 
@@ -50,6 +50,16 @@ public class GroupAdminServiceImpl implements GroupAdminService {
 
     @Override
     public boolean addRemoveAsAdmin(int groupId, int userId) {
-        return false;
+        boolean added = false;
+        Group group = groupService.findGroupById(groupId);
+        TUser tUser = tUserService.getUser(userId);
+        if (tUser.getGroups().contains(group)) {
+            tUser.getGroups().remove(group);
+        } else {
+            tUser.getGroups().add(group);
+            added = true;
+        }
+        tUserService.save(tUser);
+        return added;
     }
 }

@@ -1,12 +1,12 @@
-package com.rakole.tinyurl.firebase;
+package com.rakole.tinyurl.utils;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
+import com.rakole.tinyurl.firebase.SecurityService;
 import com.rakole.tinyurl.model.security.Credentials;
 import com.rakole.tinyurl.model.security.SecurityProperties;
 import com.rakole.tinyurl.model.security.User;
-import com.rakole.tinyurl.utils.CookieUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -83,7 +83,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         }
     }
 
-    protected User firebaseTokenToUserConverter(FirebaseToken decodedToken) {
+    public User firebaseTokenToUserConverter(FirebaseToken decodedToken) {
         User user = null;
         if (decodedToken != null) {
             user = new User();

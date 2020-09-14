@@ -9,4 +9,8 @@ public interface TUserService {
 
     List<TUser> getAllUsers();
 
+    TUser getUser(int userId);
+
+    TUser save(TUser tUser);
+
 }
