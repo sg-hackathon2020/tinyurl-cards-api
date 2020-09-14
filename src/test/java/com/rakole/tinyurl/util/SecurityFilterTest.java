@@ -1,9 +1,11 @@
-package com.rakole.tinyurl.firebase;
+package com.rakole.tinyurl.util;
 
 import com.google.firebase.auth.FirebaseToken;
+import com.rakole.tinyurl.firebase.SecurityService;
 import com.rakole.tinyurl.model.security.SecurityProperties;
 import com.rakole.tinyurl.model.security.User;
 import com.rakole.tinyurl.utils.CookieUtils;
+import com.rakole.tinyurl.utils.SecurityFilter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "TenantUser")
@@ -20,5 +22,11 @@ public class TUser {
     private int id;
     @NotNull
     private String email;
+
+    @ManyToMany
+    @JoinTable(name = "GroupAdmin",
+            joinColumns = @JoinColumn(name = "userId"),
+            inverseJoinColumns = @JoinColumn(name = "groupId"))
+    private List<Group> groups = new ArrayList<>();
 }
  

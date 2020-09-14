@@ -1,11 +1,14 @@
 package com.rakole.tinyurl.service;
 
 import com.rakole.tinyurl.api.TUserService;
+import com.rakole.tinyurl.exception.UserNotFoundException;
 import com.rakole.tinyurl.firebase.SecurityService;
 import com.rakole.tinyurl.model.TUser;
 import com.rakole.tinyurl.repository.TUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class TUserServiceImpl implements TUserService {
@@ -32,5 +35,20 @@ public class TUserServiceImpl implements TUserService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<TUser> getAllUsers() {
+        return tUserRepository.findAll();
+    }
+
+    @Override
+    public TUser getUser(int userId) {
+        return tUserRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+    }
+
+    @Override
+    public TUser save(TUser tUser) {
+        return tUserRepository.save(tUser);
     }
 }
