@@ -13,6 +13,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -58,30 +61,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             }
         };
     }
-/*
-	@Bean
-	CorsConfigurationSource corsConfigurationSource() {
-		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOrigins(restSecProps.getAllowedOrigins());
-		configuration.setAllowedMethods(restSecProps.getAllowedMethods());
-		configuration.setAllowedHeaders(restSecProps.getAllowedHeaders());
-		configuration.setAllowCredentials(restSecProps.isAllowCredentials());
-		configuration.setExposedHeaders(restSecProps.getExposedHeaders());
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", configuration);
-		return source;
-	}*/
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(restSecProps.getAllowedOrigins());
+        configuration.setAllowedMethods(restSecProps.getAllowedMethods());
+        configuration.setAllowedHeaders(restSecProps.getAllowedHeaders());
+        configuration.setAllowCredentials(restSecProps.isAllowCredentials());
+        configuration.setExposedHeaders(restSecProps.getExposedHeaders());
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http.cors().configurationSource(corsConfigurationSource())
+                .and().authorizeRequests()
                 .antMatchers("/v2/api-docs",
                         "/configuration/ui",
                         "/swagger-resources/**",
                         "/configuration/security",
                         "/swagger-ui.html",
-                        "/webjars/**").permitAll()
-        /*.antMatchers("/api/v1/**").permitAll().anyRequest().authenticated()*/;
+                        "/webjars/**").permitAll();
+        http.csrf().disable();
+        /*.antMatchers("/api/v1/**").permitAll().anyRequest().authenticated()*/
     }
 
     @Override
