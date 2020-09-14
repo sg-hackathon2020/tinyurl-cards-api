@@ -26,4 +26,7 @@ public class Group {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private List<Card> cards;
+
+    @ManyToMany(mappedBy = "groups")
+    private List<TUser> admins;
 }

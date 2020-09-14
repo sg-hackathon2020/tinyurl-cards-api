@@ -7,6 +7,8 @@ import com.rakole.tinyurl.repository.TUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TUserServiceImpl implements TUserService {
 
@@ -32,5 +34,10 @@ public class TUserServiceImpl implements TUserService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<TUser> getAllUsers() {
+        return tUserRepository.findAll();
     }
 }
