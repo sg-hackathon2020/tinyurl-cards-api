@@ -24,3 +24,10 @@ create table card
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
+
+
+create table TenantUser
+(
+    id    int primary key IDENTITY (1,1),
+    email varchar(255) not null unique
+);
