@@ -13,6 +13,6 @@ public class CardCrudDto {
     private String title;
     private String description;
     private String url;
-    private String groupId;
+    private Integer groupId;
     private String prefix;
 }

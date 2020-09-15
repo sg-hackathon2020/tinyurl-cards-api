@@ -1,5 +1,6 @@
 package com.rakole.tinyurl.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -28,5 +29,6 @@ public class Group {
     private List<Card> cards;
 
     @ManyToMany(mappedBy = "groups")
+    @JsonBackReference
     private List<TUser> admins;
 }

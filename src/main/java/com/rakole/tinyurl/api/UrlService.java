@@ -8,5 +8,5 @@ public interface UrlService {
 
     Url save(Url url);
 
-    Url findByShortUrl(String shortUrl) throws UrlNotFoundException;
+    Url findByHash(String shortUrl) throws UrlNotFoundException;
 }

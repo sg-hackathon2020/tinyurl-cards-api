@@ -1,5 +1,6 @@
 package com.rakole.tinyurl.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,6 +25,7 @@ public class TUser {
     private String email;
 
     @ManyToMany
+    @JsonBackReference
     @JoinTable(name = "GroupAdmin",
             joinColumns = @JoinColumn(name = "userId"),
             inverseJoinColumns = @JoinColumn(name = "groupId"))

@@ -28,13 +28,14 @@ public class UrlServiceImpl implements UrlService {
 
     @Override
     @Cacheable(cacheNames = "short_url_cache", key = "{#shortUrl}")
-    public Url findByShortUrl(String shortUrl) throws UrlNotFoundException {
-        Url url = urlRepository.findByShortUrl(shortUrl).orElseThrow(UrlNotFoundException::new);
+    public Url findByHash(String shortUrl) throws UrlNotFoundException {
+        Url url = urlRepository.findByHash(shortUrl).orElseThrow(UrlNotFoundException::new);
         return getUrl(url);
     }
 
     protected Url getUrl(Url url) throws UrlNotFoundException {
-        if (!url.is_active())
+        if (!url.isActive())
+
             throw new UrlNotFoundException();
         return url;
     }
