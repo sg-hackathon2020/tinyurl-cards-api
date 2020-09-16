@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: beyond-bookmarks-api-deployment
+  labels:
+    app: beyond-bookmarks-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: beyond-bookmarks-api
+  template:
+    metadata:
+      labels:
+        app: beyond-bookmarks-api
+    spec:
+      containers:
+        - name: beyond-bookmarks-api
+          image: beyond-bookmarks-api:latest
+          ports:
+            - containerPort: 8080
