@@ -27,4 +27,8 @@ public class Url implements Serializable {
     @JsonBackReference
     private Card card;
     private LocalDate date;
+
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private TUser user;
 }

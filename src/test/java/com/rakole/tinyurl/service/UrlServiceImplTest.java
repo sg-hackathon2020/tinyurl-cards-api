@@ -10,10 +10,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
@@ -104,6 +105,17 @@ class UrlServiceImplTest {
     @DisplayName("method should throw exception if url is not active")
     void getUrl() {
         Url url = Url.builder().isActive(false).build();
-        assertThrows(UrlNotFoundException.class, () -> urlService.getUrl(url));
+        assertThrows(UrlNotFoundException.class, () -> urlService.isUrlActive(url));
+    }
+
+    @Test
+    @DisplayName("When google is pinged, the return code should be 200 and get a true")
+    void checkUrlWorks() throws IOException {
+        assertTrue(UrlServiceImpl.checkUrlWorks("http://www.google.com"));
+    }
+
+    @Test
+    void checkUrlWorksWhenMalformedUrlSent() throws IOException {
+        assertThrows(MalformedURLException.class, () -> UrlServiceImpl.checkUrlWorks("hello"));
     }
 }
