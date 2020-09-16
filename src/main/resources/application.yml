@@ -4,7 +4,7 @@ spring:
     url: jdbc:sqlserver://hackathondbserver.database.windows.net:1433;databaseName=db_url_cards_api
     username: hackathon@hackathondbserver
 
-    password: ${DBPASSWORD}
+    password: Avni1234#@
     continue-on-error: false
   security:
     oauth2:
@@ -90,3 +90,6 @@ tiny:
   custom:
   encoding:
     length: 6
+
+
+
