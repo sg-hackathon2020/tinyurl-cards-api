@@ -7,6 +7,8 @@ import java.util.List;
 public interface TUserService {
     boolean verifyAndCreateUser();
 
+    TUser getMyCurrentUser();
+
     List<TUser> getAllUsers();
 
     TUser getUser(int userId);

@@ -30,5 +30,8 @@ public class TUser {
             joinColumns = @JoinColumn(name = "userId"),
             inverseJoinColumns = @JoinColumn(name = "groupId"))
     private List<Group> groups = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Url> urls;
 }
  

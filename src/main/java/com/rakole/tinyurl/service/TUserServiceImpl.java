@@ -30,11 +30,12 @@ public class TUserServiceImpl implements TUserService {
     @Override
     public boolean verifyAndCreateUser() {
         String email = securityService.getUser().getEmail();
-        if (!userExists(email)) {
-            System.out.println(tUserRepository.save(TUser.builder().email(email).build()));
-            return true;
-        }
-        return false;
+        return !userExists(email);
+    }
+
+    @Override
+    public TUser getMyCurrentUser() {
+        return tUserRepository.findByEmail(securityService.getUser().getEmail());
     }
 
     @Override
