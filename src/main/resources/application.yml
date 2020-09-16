@@ -84,3 +84,9 @@ security:
 
 
 
+custom-host-url: "http://localhost:8080"
+
+tiny:
+  custom:
+  encoding:
+    length: 6

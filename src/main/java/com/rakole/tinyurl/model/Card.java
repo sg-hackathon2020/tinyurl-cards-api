@@ -17,8 +17,9 @@ public class Card implements Serializable {
     private int id;
     private String title;
     private String description;
-    private String shortUrl;
-
+    @OneToOne
+    @JoinColumn(name = "urlId", nullable = false)
+    private Url url;
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "groupId")
