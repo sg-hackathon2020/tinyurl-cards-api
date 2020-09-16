@@ -50,7 +50,6 @@ public class UserController {
         TUser user = tUserRepository.findById(1).get();
 
         user.getGroups().add(group);
-        System.out.println(user);
         tUserRepository.save(user);
     }
 
