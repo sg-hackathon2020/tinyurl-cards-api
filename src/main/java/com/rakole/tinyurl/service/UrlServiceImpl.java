@@ -8,8 +8,8 @@ import com.rakole.tinyurl.enums.MessageDigestType;
 import com.rakole.tinyurl.exception.UrlNotFoundException;
 import com.rakole.tinyurl.model.TUser;
 import com.rakole.tinyurl.model.Url;
-import com.rakole.tinyurl.repository.TUserRepository;
 import com.rakole.tinyurl.repository.UrlRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -23,21 +23,24 @@ import java.util.Random;
 
 @Service
 public class UrlServiceImpl implements UrlService {
-    private final UrlRepository urlRepository;
+    @Autowired
+    private UrlRepository urlRepository;
+    @Autowired
+    private EncoderService encoderService;
+    @Autowired
+    private TUserService tUserService;
 
-    private final EncoderService encoderService;
 
-    private final TUserService tUserService;
+    public String getHostUrl() {
+        return hostUrl;
+    }
 
+    public void setHostUrl(String hostUrl) {
+        this.hostUrl = hostUrl;
+    }
 
     @Value("${custom-host-url}")
     private String hostUrl;
-
-    public UrlServiceImpl(UrlRepository urlRepository, EncoderService encoderService, TUserRepository tUserRepository, TUserService tUserService) {
-        this.urlRepository = urlRepository;
-        this.encoderService = encoderService;
-        this.tUserService = tUserService;
-    }
 
     //check if the url actually works by receiving http status 200
     public static boolean checkUrlWorks(String url) throws IOException {
