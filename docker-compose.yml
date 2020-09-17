@@ -1,0 +1,8 @@
+version: '3.7'
+services:
+  beyondbookmarksapi:
+    build: .
+    container_name: beyond-bookmark-api
+    ports:
+      - "8080:8080"
+  

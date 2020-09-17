@@ -27,4 +27,6 @@ public class TinyUrlController {
         return new ResponseEntity(UrlRequestDto.builder().url(urlService.prepareTinyUrl(url)).build()
                 , HttpStatus.OK);
     }
+    //http://localhost:8080/api/v1/tinyUrls
+
 }

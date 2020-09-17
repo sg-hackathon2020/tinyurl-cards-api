@@ -82,7 +82,8 @@ security:
     - X-Xsrf-Token
 
 
-
+server:
+  port: ${PORT:8080}
 
 custom-host-url: "http://localhost:8080"
 

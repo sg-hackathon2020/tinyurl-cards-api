@@ -117,5 +117,12 @@ public class UrlServiceImpl implements UrlService {
         return sb.append(url.getHash()).toString();
     }
 
+    /*public ResponseEntity<List<TinyUrlsResponseDto>> getAllTinyUrlsForCurrentUser() {
+        TUser tUser = tUserService.getMyCurrentUser();
+        if(tUser == null){
+            throw new UserNotFoundException();
+        }
+    }*/
+
 
 }

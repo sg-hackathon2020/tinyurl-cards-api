@@ -8,15 +8,10 @@ import com.rakole.tinyurl.repository.CardRepository;
 import com.rakole.tinyurl.repository.GroupRepository;
 import com.rakole.tinyurl.repository.UrlRepository;
 import com.rakole.tinyurl.service.CardServiceImpl;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.view.RedirectView;
 
-import java.net.URI;
 import java.time.LocalDate;
 
 @RestController
@@ -47,13 +42,5 @@ public class TestController {
 
     }
 
-    @GetMapping(value= "{shortUrl}")
-    public RedirectView testCardDto(@PathVariable String shortUrl) {
-        RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("http://www.yahoo.com");
-        return redirectView;
-    }
 
-
-    
 }
