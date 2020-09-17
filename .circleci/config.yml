@@ -10,7 +10,9 @@ jobs:
   build:
     docker:
       - image: circleci/openjdk:8-jdk-alpine
+
     working_director: ~/tinyurl-cards-api
+
     steps:
       - checkout
       - run: mvn test
