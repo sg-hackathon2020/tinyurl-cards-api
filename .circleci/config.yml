@@ -2,16 +2,41 @@ version: 2.1
 
 orbs:
   codecov: codecov/codecov@1.0.2
+  azure-aks: circleci/azure-aks@0.2.1
+  kubernetes: circleci/kubernetes@0.4.0
+  azure-cli: circleci/azure-cli@1.0.0
 
 jobs:
   build:
     docker:
-      - image: circleci/openjdk:11.0-stretch-node-browsers-legacy
+      - image: circleci/openjdk:8-jdk-alpine
+    working_director: ~/tinyurl-cards-api
     steps:
       - checkout
-      - run : mvn test
+      - run: mvn test
       - store_artifacts:
-          path:  target
+          path: target
       - codecov/upload:
           file: target/my-reports/jacoco.xml
-          token: '11163c2d-2384-4178-beda-74d8b11ba064'  
+          token: '11163c2d-2384-4178-beda-74d8b11ba064'
+      - setup_remote_docker:
+          docker_layer_caching: false
+      - run:
+          name: Login to DockerHub
+          command: docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
+      - restore_cache:
+          keys:
+            - tinyurl-cards-api-{{ checksum "pom.xml" }}
+
+      - run: mvn dependency:go-offline
+      - save_cache:
+          paths:
+            - ~/.m2
+          keys: tinyurl-cards-api-{{ checksum "pom.xml" }}
+      - run: mvn clean package
+
+      - run: mvn clean compile jib:build -Dimage=rakole/sg-hackathon:$CIRCLE_BUILD_NUM
+
+      - store_artifacts:
+          path: target/classes
+          destination: tinyurl-cards-api
