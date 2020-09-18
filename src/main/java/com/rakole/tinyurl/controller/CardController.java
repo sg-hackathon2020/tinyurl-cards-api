@@ -11,8 +11,10 @@ import com.rakole.tinyurl.model.dto.CardUpDateRequestDto;
 import com.rakole.tinyurl.repository.CardRepository;
 import com.rakole.tinyurl.repository.GroupRepository;
 import com.rakole.tinyurl.service.CardServiceImpl;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,6 +42,7 @@ public class CardController {
 
     @GetMapping("/api/v1/cards")
     @CrossOrigin
+    @ApiOperation(value = "Get all cards", response = Card.class)
     /*@PreAuthorize("isAuthenticated()")*/
     public List<Card> getAllCards() {
         return cardRepository.findAll();
@@ -48,6 +51,7 @@ public class CardController {
     @GetMapping("/api/v1/cards/{id}")
     @CrossOrigin
     /*@PreAuthorize("isAuthenticated()")*/
+    @ApiOperation(value = "Get one card", response = Card.class)
     public Card getCard(@PathVariable int id) {
         return cardRepository.findById(id).get();
     }
@@ -55,6 +59,7 @@ public class CardController {
     @PostMapping("/api/v1/group")
     @CrossOrigin
     /*@PreAuthorize("isAuthenticated()")*/
+    @ApiOperation(value = "Create a new Group", response = Group.class)
     public Group createGroup(@RequestBody Group group) {
         return groupRepository.save(group);
     }
@@ -62,6 +67,7 @@ public class CardController {
     @GetMapping("/api/v1/group")
     @CrossOrigin
     /*@PreAuthorize("isAuthenticated()")*/
+    @ApiOperation(value = "Get all groups", response = Group.class)
     public List<Group> getAllGroups() {
         return groupRepository.findAll();
     }
@@ -72,8 +78,6 @@ public class CardController {
     public String test() {
         Group group = groupRepository
                 .save(Group.builder().clusterName("test").build());
-       /* cardRepository.save(Card.builder().group(group).shortUrl("xxx").build());
-        cardRepository.save(Card.builder().group(group).shortUrl("yyy").build());*/
         return null;
     }
 
@@ -98,6 +102,7 @@ public class CardController {
     @PostMapping("/api/v1/groups/{groupId}/cards")
     @CrossOrigin
     /*@PreAuthorize("isAuthenticated()")*/
+    @ApiOperation(value = "Get all cards", response = Card.class)
     public ResponseEntity<Void> saveCard(@PathVariable int groupId, @RequestBody CardCrudDto card) throws NoSuchAlgorithmException {
         cardService.save(card);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -111,7 +116,7 @@ public class CardController {
     }
 
 
-    @GetMapping("/api/v1/groups/{groupId}/cards")
+    @GetMapping(value = "/api/v1/groups/{groupId}/cards", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
     /*@PreAuthorize("isAuthenticated()")*/
     public ResponseEntity<List<CardResponseEntityDto>> getCardsForAGroup(@PathVariable int groupId) {
@@ -124,7 +129,7 @@ public class CardController {
                         .shortUrl(urlService.prepareTinyUrl(card.getUrl())).build()).collect(Collectors.toList()), HttpStatus.OK);
     }
 
-    @PutMapping("/api/v1/groups/{groupId}/cards")
+    @PutMapping(value = "/api/v1/groups/{groupId}/cards", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
     public ResponseEntity<Void> updateCard(@PathVariable int groupId, @RequestBody CardUpDateRequestDto card) {
         Group group = groupRepository.findById(groupId).get();

@@ -15,21 +15,36 @@ import springfox.documentation.swagger.web.SecurityConfigurationBuilder;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 @Configuration
 @EnableSwagger2
-public class SwaggerConfig {
+public class SwaggerConfig implements ApiDocumentationConfig {
 
     public static final String AUTH_SERVER = "https://accounts.google.com/o/oauth2/auth";
     public static final String CLIENT_ID = "759771973861-kouv5emq10vssu9nm7lmjlbvhisn73e2.apps.googleusercontent.com";
-    public static final String CLIENT_SECRET = "R8ZCAOZE59pbLeo9oKqConhl";
+    public static final String CLIENT_SECRET = "not real one";
+    public static final String API_TITLE = "Beyond Bookmarks API";
+    public static final String API_DESCRIPTION = "This API makes life easy for a organization which is growing. " +
+            "You can create tiny urls using it which can be shared with anyone. There is also a facility to create groups and card under them.";
+    public static final String API_VERSION = "V1";
 
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2).select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
-                .build()
+                .build().apiInfo(
+                        new ApiInfo(
+                                API_TITLE,
+                                API_DESCRIPTION,
+                                API_VERSION,
+                                null,
+                                null,
+                                null,
+                                null,
+                                Collections.emptyList()
+                        ))
                 .securitySchemes(Arrays.asList(securityScheme()))
                 .securityContexts(Arrays.asList(securityContext()));
     }
