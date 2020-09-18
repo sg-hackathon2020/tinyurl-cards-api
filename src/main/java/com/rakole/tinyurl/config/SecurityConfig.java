@@ -32,9 +32,9 @@ import java.util.Map;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     public final SecurityFilter tokenAuthenticationFilter;
-    final
+    private final
     ObjectMapper objectMapper;
-    final
+    private final
     SecurityProperties restSecProps;
 
     public SecurityConfig(ObjectMapper objectMapper, SecurityProperties restSecProps, SecurityFilter tokenAuthenticationFilter) {

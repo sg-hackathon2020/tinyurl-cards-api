@@ -64,11 +64,9 @@ public class SecurityFilter extends OncePerRequestFilter {
                 decodedToken = FirebaseAuth.getInstance().verifySessionCookie(sessionCookieValue,
                         securityProps.getFirebaseProps().isEnableCheckSessionRevoked());
                 type = Credentials.CredentialType.SESSION;
-            } else if (!strictServerSessionEnabled) {
-                if (token != null && !token.equalsIgnoreCase("undefined")) {
-                    decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
-                    type = Credentials.CredentialType.ID_TOKEN;
-                }
+            } else if (!strictServerSessionEnabled && token != null && !token.equalsIgnoreCase("undefined")) {
+                decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
+                type = Credentials.CredentialType.ID_TOKEN;
             }
         } catch (FirebaseAuthException e) {
             e.printStackTrace();
