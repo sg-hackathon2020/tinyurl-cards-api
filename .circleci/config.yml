@@ -24,7 +24,6 @@ jobs:
           command: |
             cp target/tinyurl-*.jar /tmp/standalone-app.jar
             cp .circleci/setup-heroku.sh /tmp/setup-heroku.sh
-            cp src/main/resources/deployment/cf-dev-manifest.yml /tmp/
       - store_test_results:
           path: target/surefire-reports
 
