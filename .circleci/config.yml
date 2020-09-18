@@ -19,7 +19,6 @@ jobs:
           name: Build and test
           command: |
             mvn package -B  #run your tests
-            killall sc #kill saucelabs tunnel
       - run:
           name: Copy deployment artifacts to workspace
           command: |
