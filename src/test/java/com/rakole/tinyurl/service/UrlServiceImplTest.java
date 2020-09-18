@@ -10,10 +10,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
@@ -32,7 +33,7 @@ class UrlServiceImplTest {
     @DisplayName("When find by id is called, and the Url object is present in DB")
     void findById() {
         //given
-        Url url = Url.builder().id(1).groupId(1).is_active(true).build();
+        Url url = Url.builder().id(1).isActive(true).build();
         given(urlRepository.findById(1)).willReturn(Optional.of(url));
 
         //when
@@ -60,7 +61,7 @@ class UrlServiceImplTest {
     @Test
     void save() {
         //given
-        Url url = Url.builder().longUrl("www.google.com").build();
+        Url url = Url.builder().url("www.google.com").build();
         given(urlRepository.save(url)).willReturn(url);
 
         //when
@@ -76,34 +77,45 @@ class UrlServiceImplTest {
     @DisplayName("When find by shortUrl is called, and the Url object is present in DB")
     void findByShortUrl() {
         //given
-        Url url = Url.builder().id(1).groupId(1).is_active(true).build();
-        given(urlRepository.findByShortUrl("tiny.url/3244a")).willReturn(Optional.of(url));
+        Url url = Url.builder().id(1).isActive(true).build();
+        given(urlRepository.findByHash("tiny.url/3244a")).willReturn(Optional.of(url));
 
         //when
-        Url foundUrl = urlService.findByShortUrl("tiny.url/3244a");
+        Url foundUrl = urlService.findByHash("tiny.url/3244a");
 
         //then
         assertNotNull(foundUrl);
-        then(urlRepository).should(times(1)).findByShortUrl(anyString());
+        then(urlRepository).should(times(1)).findByHash(anyString());
     }
 
     @Test
     @DisplayName("When findByShortUrl is called and Url object is not present in DB")
     void testFindShortUrlThrows() {
         //given
-        given(urlRepository.findByShortUrl("tiny.url/3244a")).willReturn(Optional.empty());
+        given(urlRepository.findByHash("tiny.url/3244a")).willReturn(Optional.empty());
 
         //when
-        assertThrows(UrlNotFoundException.class, () -> urlService.findByShortUrl("tiny.url/3244a"));
+        assertThrows(UrlNotFoundException.class, () -> urlService.findByHash("tiny.url/3244a"));
 
         //then
-        then(urlRepository).should().findByShortUrl("tiny.url/3244a");
+        then(urlRepository).should().findByHash("tiny.url/3244a");
     }
 
     @Test
     @DisplayName("method should throw exception if url is not active")
     void getUrl() {
-        Url url = Url.builder().is_active(false).build();
-        assertThrows(UrlNotFoundException.class, () -> urlService.getUrl(url));
+        Url url = Url.builder().isActive(false).build();
+        assertThrows(UrlNotFoundException.class, () -> urlService.isUrlActive(url));
+    }
+
+    @Test
+    @DisplayName("When google is pinged, the return code should be 200 and get a true")
+    void checkUrlWorks() throws IOException {
+        assertTrue(UrlServiceImpl.checkUrlWorks("http://www.google.com"));
+    }
+
+    @Test
+    void checkUrlWorksWhenMalformedUrlSent() throws IOException {
+        assertThrows(MalformedURLException.class, () -> UrlServiceImpl.checkUrlWorks("hello"));
     }
 }

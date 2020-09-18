@@ -7,4 +7,6 @@ import java.security.NoSuchAlgorithmException;
 
 public interface EncoderService {
     String transform(EncoderType encoderType, MessageDigestType messageDigestType, String url) throws NoSuchAlgorithmException;
+
+    public String shortenUrl(EncoderType encoderType, MessageDigestType messageDigestType, String url) throws NoSuchAlgorithmException;
 }

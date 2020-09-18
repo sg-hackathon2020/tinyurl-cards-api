@@ -1,17 +1,71 @@
-version: 2.1
-
-orbs:
-  codecov: codecov/codecov@1.0.2
-
+version: 2
 jobs:
   build:
     docker:
-      - image: circleci/openjdk:11.0-stretch-node-browsers-legacy
+      - image: circleci/openjdk:8-jdk-browsers
+    working_directory: ~/repo
     steps:
       - checkout
-      - run : mvn test
+      - restore_cache:
+          key: tinyurl-cards-api-{{ checksum "pom.xml" }}
+
+      - run: mvn dependency:go-offline
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: tinyurl-cards-api-{{ checksum "pom.xml" }}
+      - run:
+          name: Build and test
+          command: |
+            mvn package -B  #run your tests
+      - run:
+          name: Copy deployment artifacts to workspace
+          command: |
+            cp target/tinyurl-*.jar /tmp/standalone-app.jar
+            cp .circleci/setup-heroku.sh /tmp/setup-heroku.sh
+      - store_test_results:
+          path: target/surefire-reports
+
       - store_artifacts:
-          path:  target
-      - codecov/upload:
-          file: target/my-reports/jacoco.xml
-          token: '11163c2d-2384-4178-beda-74d8b11ba064'  
+          path: /tmp/standalone-app.jar
+      - store_artifacts:
+          path: /tmp/cf-dev-manifest.yml
+
+      - persist_to_workspace:
+          root: /tmp
+          paths:
+            - standalone-app.jar
+            - setup-heroku.sh
+            - cf-dev-manifest.yml
+
+  deploy-heroku:
+    docker:
+      - image: circleci/openjdk:8-jdk-browsers
+    working_directory: ~/deploy
+    steps:
+      # why rebuild something we already tested, rebuilding invalidates any previous confidence?!
+      - attach_workspace:
+          at: /tmp
+
+      - run:
+          name: Run setup script
+          command: bash /tmp/setup-heroku.sh
+
+      - run:
+          name: Heroku Deploy
+          command: |
+            cp /tmp/standalone-app.jar .
+            ls -la
+            heroku plugins:install heroku-cli-deploy
+            heroku plugins:install heroku-cli-deploy  # when debugging on circle image, first run succeeded, but did not make plugin available
+            heroku deploy:jar standalone-app.jar --app $HEROKU_APP_NAME
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build
+      - deploy-heroku:
+          requires:
+            - build

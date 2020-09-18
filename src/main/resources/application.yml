@@ -4,8 +4,16 @@ spring:
     url: jdbc:sqlserver://hackathondbserver.database.windows.net:1433;databaseName=db_url_cards_api
     username: hackathon@hackathondbserver
 
-    password: ${DBPASSWORD}
+    password: Avni1234#@
     continue-on-error: false
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://securetoken.google.com/bbookmark-5da10
+          jwk-set-uri: https://www.googleapis.com/robot/v1/metadata/jwk/securetoken@system.gserviceaccount.com
+
+
 
   jpa:
     hibernate:
@@ -20,3 +28,71 @@ spring:
 custom:
   cache:
     ttl: 200
+
+
+security:
+  firebase-props:
+    database-url: "https://bbookmark-5da10.firebaseio.com"
+    enable-strict-server-session: false
+    enable-check-session-revoked: false
+    enable-logout-everywhere: false
+    session-expiry-in-days: 5
+  cookie-props:
+    max-age-in-minutes: 7200
+    http-only: true
+    secure: true
+    domain: localhost
+    path: /
+  allow-credentials: true
+  allowed-origins:
+    - https://localhost:3000
+    - http://localhost:3000
+    - http://localhost:8080
+    - https://beyond-bookmarks-api.herokuapp.com
+    - https://bbookmark-5da10.web.app
+  allowed-methods:
+    - GET
+    - POST
+    - PUT
+    - PATCH
+    - DELETE
+    - OPTIONS
+  allowed-headers:
+    - Authorization
+    - Origin
+    - Content-Type
+    - Accept
+    - Accept-Encoding
+    - Accept-Language
+    - Access-Control-Allow-Origin
+    - Access-Control-Allow-Headers
+    - Access-Control-Request-Method
+    - X-Requested-With
+    - X-Auth-Token
+    - X-Xsrf-Token
+    - Cache-Control
+    - Id-Token
+  allowed-public-apis:
+    - /favicon.ico
+    - /session/login
+    - /public/*
+    - /configuration/ui
+    - /swagger-resources/**
+    - /configuration/security
+    - /swagger-ui.html
+  exposed-headers:
+    - X-Xsrf-Token
+
+
+server:
+  port: ${PORT:8080}
+
+custom-host-url: "https://beyond-bookmarks-api.herokuapp.com"
+
+tiny:
+  custom:
+  encoding:
+    length: 6
+
+
+

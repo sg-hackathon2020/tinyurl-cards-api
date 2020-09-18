@@ -1,0 +1,66 @@
+SELECT *
+FROM sys.Tables;
+
+drop table org_group;
+create table org_group
+(
+    id          int primary key IDENTITY (1,1),
+    groupName   varchar(100),
+    clusterName varchar(100),
+    tribeName   varchar(100),
+    ftName      varchar(100)
+);
+
+
+create table Url
+(
+    id       int primary key IDENTITY (1,1),
+    url      varchar(255) not null,
+    prefix   varchar(50)  null,
+    hash     varchar(15)  not null,
+    isActive bit default 1,
+    userId   int,
+    date     date         null
+);
+
+drop table card;
+create table card
+(
+    id          int primary key IDENTITY (1,1),
+    title       varchar(50),
+    description varchar(256),
+    urlId       int not null,
+    groupId     int not null,
+    CONSTRAINT FK_ORG_GROUP_1 FOREIGN KEY (groupId)
+        REFERENCES org_group (id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+
+
+create table TenantUser
+(
+    id    int primary key IDENTITY (1,1),
+    email varchar(255) not null unique
+);
+
+
+create table GroupAdmin
+(
+    userId  int not null,
+    groupId int not null,
+    constraint FK_GROUP_ADMIN_1 FOREIGN KEY (userId) references TenantUser (id),
+    constraint FK_GROUP_ADMIN_2 FOREIGN KEY (groupId) references org_group (id)
+);
+
+
+/*    private String longUrl;
+    private String shortUrl;
+    private int userId;
+    private boolean is_active;
+    private String prefix;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;*/
+
