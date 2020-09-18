@@ -1,6 +1,5 @@
 package com.rakole.tinyurl.service;
 
-import com.rakole.tinyurl.api.GroupService;
 import com.rakole.tinyurl.model.Group;
 import com.rakole.tinyurl.repository.GroupRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -10,7 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.times;
@@ -19,9 +18,9 @@ import static org.mockito.Mockito.times;
 class GroupServiceImplTest {
 
     @Mock
-    GroupRepository groupRepository;
+    private GroupRepository groupRepository;
     @InjectMocks
-    GroupServiceImpl groupService;
+    private GroupServiceImpl groupService;
 
     @Test
     @DisplayName("test if findGroupById gets called only once")
@@ -34,6 +33,7 @@ class GroupServiceImplTest {
         Group returnedGroup = groupService.findGroupById(1);
 
         //then
+        assertNotNull(returnedGroup);
         then(groupRepository).should(times(1)).findById(1);
     }
 }

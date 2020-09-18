@@ -125,6 +125,7 @@ public class CardController {
     }
 
     @PutMapping("/api/v1/groups/{groupId}/cards")
+    @CrossOrigin
     public ResponseEntity<Void> updateCard(@PathVariable int groupId, @RequestBody CardUpDateRequestDto card) {
         Group group = groupRepository.findById(groupId).get();
         System.out.println(card);

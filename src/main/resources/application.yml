@@ -48,6 +48,8 @@ security:
     - https://localhost:3000
     - http://localhost:3000
     - http://localhost:8080
+    - https://beyond-bookmarks-api.herokuapp.com
+    - https://bbookmark-5da10.web.app
   allowed-methods:
     - GET
     - POST
@@ -85,7 +87,7 @@ security:
 server:
   port: ${PORT:8080}
 
-custom-host-url: "https://beyond-bookmarks-circleci.herokuapp.com"
+custom-host-url: "https://beyond-bookmarks-api.herokuapp.com"
 
 tiny:
   custom:
