@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @SpringBootTest
 public class UrlServiceTestIT {
 
-    Url url;
+    private Url url;
     @Autowired
     private UrlServiceImpl urlService;
 

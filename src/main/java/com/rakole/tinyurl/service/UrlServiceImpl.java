@@ -34,6 +34,8 @@ public class UrlServiceImpl implements UrlService {
     @Autowired
     private TUserService tUserService;
 
+    @Value("${custom-host-url}")
+    private String hostUrl;
 
     public String getHostUrl() {
         return hostUrl;
@@ -43,8 +45,6 @@ public class UrlServiceImpl implements UrlService {
         this.hostUrl = hostUrl;
     }
 
-    @Value("${custom-host-url}")
-    private String hostUrl;
 
     //check if the url actually works by receiving http status 200
     public static boolean checkUrlWorks(String url) throws IOException {
