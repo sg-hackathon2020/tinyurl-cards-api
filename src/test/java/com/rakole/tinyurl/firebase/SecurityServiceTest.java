@@ -2,7 +2,6 @@ package com.rakole.tinyurl.firebase;
 
 import com.rakole.tinyurl.model.security.Credentials;
 import com.rakole.tinyurl.model.security.User;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,20 +22,20 @@ import static org.mockito.Mockito.times;
 @ExtendWith(MockitoExtension.class)
 class SecurityServiceTest {
     @Mock
-    HttpServletRequest request;
+    private HttpServletRequest request;
 
     @Mock
-    SecurityContext securityContext;
+    private SecurityContext securityContext;
 
     @Mock
-    Authentication authentication;
+    private Authentication authentication;
 
     @Mock
-    Credentials credentials;
+    private Credentials credentials;
 
 
     @InjectMocks
-    SecurityService securityService;
+    private SecurityService securityService;
 
     @Test
     @DisplayName("If the token header type is Authorization," +
@@ -98,7 +97,7 @@ class SecurityServiceTest {
         User contextUser = securityService.getUser();
 
         //then
-        Assertions.assertEquals(user, contextUser);
+        assertEquals(user, contextUser);
         then(securityContext).should(times(2)).getAuthentication();
 
     }

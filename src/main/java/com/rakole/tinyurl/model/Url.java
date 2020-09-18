@@ -29,6 +29,7 @@ public class Url implements Serializable {
     private LocalDate date;
 
     @ManyToOne
+    @JsonBackReference(value = "tuser_url")
     @JoinColumn(name = "userId")
     private TUser user;
 }

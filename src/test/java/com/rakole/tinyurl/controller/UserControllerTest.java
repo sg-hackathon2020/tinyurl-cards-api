@@ -24,14 +24,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class UserControllerTest {
 
     @Mock
-    GroupRepository groupRepository;
+    private GroupRepository groupRepository;
     @Mock
-    TUserRepository tUserRepository;
+    private TUserRepository tUserRepository;
 
     @InjectMocks
-    UserController userController;
+    private UserController userController;
 
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
@@ -50,9 +50,5 @@ class UserControllerTest {
         given(tUserRepository.findById(any())).willReturn(Optional.of(new TUser()));
         mockMvc.perform(get("/testgroup")).andExpect(status().isOk())/*.
         andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))*/;
-    }
-
-    @Test
-    void test2() {
     }
 }

@@ -21,7 +21,7 @@ public class GroupAdminController {
     @CrossOrigin
     public ResponseEntity<List<UserAdminView>> getUserAdminView(@PathVariable int groupId) {
         //todo remove current logged in user from the list
-        return new ResponseEntity(groupAdminService.getUserAdminView(1), HttpStatus.OK);
+        return new ResponseEntity(groupAdminService.getUserAdminView(groupId), HttpStatus.OK);
     }
 
     @PostMapping("/api/v1/groups/{groupId}/admins")

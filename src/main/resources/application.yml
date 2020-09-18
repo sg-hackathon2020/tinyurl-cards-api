@@ -82,9 +82,10 @@ security:
     - X-Xsrf-Token
 
 
+server:
+  port: ${PORT:8080}
 
-
-custom-host-url: "http://localhost:8080"
+custom-host-url: "https://beyond-bookmarks-circleci.herokuapp.com"
 
 tiny:
   custom:
