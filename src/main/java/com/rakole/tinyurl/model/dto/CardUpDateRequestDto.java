@@ -7,10 +7,11 @@ import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@Builder
 @NoArgsConstructor
-public class TinyUrlsResponseDto {
+@Builder
+public class CardUpDateRequestDto {
+    private String title;
+    private String description;
     private String url;
-    private String tinyUrl;
-    private int id;
+    private int cardId;
 }

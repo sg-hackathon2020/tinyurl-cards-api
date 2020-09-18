@@ -6,8 +6,10 @@ import com.rakole.tinyurl.api.UrlService;
 import com.rakole.tinyurl.enums.EncoderType;
 import com.rakole.tinyurl.enums.MessageDigestType;
 import com.rakole.tinyurl.exception.UrlNotFoundException;
+import com.rakole.tinyurl.exception.UserNotFoundException;
 import com.rakole.tinyurl.model.TUser;
 import com.rakole.tinyurl.model.Url;
+import com.rakole.tinyurl.model.dto.TinyUrlsResponseDto;
 import com.rakole.tinyurl.repository.UrlRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +21,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Service
 public class UrlServiceImpl implements UrlService {
@@ -112,17 +116,20 @@ public class UrlServiceImpl implements UrlService {
     public String prepareTinyUrl(Url url) {
         StringBuilder sb = new StringBuilder();
         sb.append(hostUrl).append("/");
-        if (null != url.getPrefix())
-            sb.append(url.getPrefix()).append("/");
+        /*if (null != url.getPrefix())
+            sb.append(url.getPrefix()).append("/");*/
         return sb.append(url.getHash()).toString();
     }
 
-    /*public ResponseEntity<List<TinyUrlsResponseDto>> getAllTinyUrlsForCurrentUser() {
+    @Override
+    public List<TinyUrlsResponseDto> getAllTinyUrlsForCurrentUser() {
         TUser tUser = tUserService.getMyCurrentUser();
-        if(tUser == null){
+        if (tUser == null) {
             throw new UserNotFoundException();
         }
-    }*/
+        return urlRepository.findAllByUser(tUser)
+                .stream().map(url -> TinyUrlsResponseDto.builder().tinyUrl(prepareTinyUrl(url))
+                        .url(url.getUrl()).id(url.getId()).build()).collect(Collectors.toList());
 
-
+    }
 }

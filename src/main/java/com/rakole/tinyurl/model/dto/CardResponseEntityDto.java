@@ -7,10 +7,12 @@ import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@Builder
 @NoArgsConstructor
-public class TinyUrlsResponseDto {
-    private String url;
-    private String tinyUrl;
+@Builder
+public class CardResponseEntityDto {
     private int id;
+    private String title;
+    private String description;
+    private String longUrl;
+    private String shortUrl;
 }

@@ -1,6 +1,7 @@
 package com.rakole.tinyurl.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,9 +19,10 @@ public class Card implements Serializable {
     private String title;
     private String description;
     @OneToOne
+    @JsonManagedReference
     @JoinColumn(name = "urlId", nullable = false)
     private Url url;
-    @JsonBackReference
+    @JsonBackReference(value = "group-card")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "groupId")
     @ToString.Exclude

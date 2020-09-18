@@ -1,6 +1,7 @@
 package com.rakole.tinyurl.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +19,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TUser {
+public class TUser implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -25,13 +27,14 @@ public class TUser {
     private String email;
 
     @ManyToMany
-    @JsonBackReference
+    @JsonIgnoreProperties("admins")
     @JoinTable(name = "GroupAdmin",
             joinColumns = @JoinColumn(name = "userId"),
             inverseJoinColumns = @JoinColumn(name = "groupId"))
     private List<Group> groups = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
+    @JsonManagedReference(value = "tuser_url")
     private List<Url> urls;
 }
  

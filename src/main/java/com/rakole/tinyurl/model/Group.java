@@ -1,6 +1,6 @@
 package com.rakole.tinyurl.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -22,13 +22,13 @@ public class Group {
     private String tribeName;
     private String ftName;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "group-card")
     @OneToMany(mappedBy = "group")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private List<Card> cards;
 
     @ManyToMany(mappedBy = "groups")
-    @JsonBackReference
+    @JsonIgnoreProperties("groups")
     private List<TUser> admins;
 }
