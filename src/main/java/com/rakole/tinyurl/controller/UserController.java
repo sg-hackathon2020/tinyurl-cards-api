@@ -9,8 +9,8 @@ import com.rakole.tinyurl.repository.GroupRepository;
 import com.rakole.tinyurl.repository.TUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,15 +36,18 @@ public class UserController {
     /***
      * this endpoint based on user in token checks if a user exists in system,
      * If the user does not exists, it creates a user in Tenant User (TUser) table*/
-    @GetMapping("/api/v1/users/validate")
+    @GetMapping(value = "/api/v1/users/validate", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
+/*
     @PreAuthorize("isAuthenticated()")
+*/
     public ResponseEntity<Void> verifyOrCreateUser() {
         tUserService.verifyAndCreateUser();
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("testgroup")
+    @GetMapping(value = "testgroup", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
     public void testMyJoinTable() {
         Group group = groupRepository.findById(1).get();
         TUser user = tUserRepository.findById(1).get();
@@ -53,7 +56,8 @@ public class UserController {
         tUserRepository.save(user);
     }
 
-    @GetMapping("testView")
+    @GetMapping(value = "testView", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
     public void test2() {
         List<UserAdminView> usd = groupAdminService.getUserAdminView(1);
         usd.forEach(System.out::println);

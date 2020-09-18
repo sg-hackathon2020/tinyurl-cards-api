@@ -6,6 +6,7 @@ import com.rakole.tinyurl.model.dto.TinyUrlsResponseDto;
 import com.rakole.tinyurl.model.dto.UrlRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,7 @@ public class TinyUrlController {
         this.urlService = urlService;
     }
 
-    @PostMapping("/tinyUrl")
+    @PostMapping(value = "/tinyUrl", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
     public ResponseEntity<UrlRequestDto> createStandAloneTinyUrl(@RequestBody UrlRequestDto urlRequestDto) throws NoSuchAlgorithmException {
         Url url = urlService.createStandAloneUrl(1, urlRequestDto.getUrl());
@@ -31,7 +32,7 @@ public class TinyUrlController {
     }
 
     @CrossOrigin
-    @GetMapping("tinyUrls")
+    @GetMapping(value = "tinyUrls", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<TinyUrlsResponseDto>> getAllUrlsForCurrentUser() {
         return new ResponseEntity(urlService.getAllTinyUrlsForCurrentUser(), HttpStatus.OK);
     }

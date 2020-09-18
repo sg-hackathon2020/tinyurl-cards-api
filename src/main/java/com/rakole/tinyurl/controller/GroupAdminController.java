@@ -4,6 +4,7 @@ import com.rakole.tinyurl.api.GroupAdminService;
 import com.rakole.tinyurl.model.ToggleAdminRequestBody;
 import com.rakole.tinyurl.model.UserAdminView;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,14 +18,14 @@ public class GroupAdminController {
         this.groupAdminService = groupAdminService;
     }
 
-    @GetMapping("/api/v1/groups/{groupId}/admins")
+    @GetMapping(value = "/api/v1/groups/{groupId}/admins", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
     public ResponseEntity<List<UserAdminView>> getUserAdminView(@PathVariable int groupId) {
         //todo remove current logged in user from the list
         return new ResponseEntity(groupAdminService.getUserAdminView(groupId), HttpStatus.OK);
     }
 
-    @PostMapping("/api/v1/groups/{groupId}/admins")
+    @PostMapping(value = "/api/v1/groups/{groupId}/admins", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
     public ResponseEntity<List<UserAdminView>> toggleAdmin(@RequestBody ToggleAdminRequestBody toggleAdminRequestBody) {
         System.out.println("i am here");
