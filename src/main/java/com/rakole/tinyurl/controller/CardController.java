@@ -76,7 +76,7 @@ public class CardController {
     @CrossOrigin
     /*@PreAuthorize("isAuthenticated()")*/
     public String test() {
-        Group group = groupRepository
+        groupRepository
                 .save(Group.builder().clusterName("test").build());
         return null;
     }

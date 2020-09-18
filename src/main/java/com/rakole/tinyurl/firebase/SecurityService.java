@@ -15,10 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 public class SecurityService {
 
 
-    final
+    public final
     CookieUtils cookieUtils;
 
-    final
+    public final
     SecurityProperties securityProps;
 
     public SecurityService(CookieUtils cookieUtils, SecurityProperties securityProps) {
