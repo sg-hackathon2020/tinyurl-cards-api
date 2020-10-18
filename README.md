@@ -1,4 +1,3 @@
-[![sg-hackathon2020](https://circleci.com/gh/sg-hackathon2020/tinyurl-cards-api.svg?style=svg)](https://app.circleci.com/pipelines/github/sg-hackathon2020/tinyurl-cards-api)
 # url-cards-api
 This API is built for crating and distributing URLs. Usually inside an organization URL's can be huge with hosting addresses attached to it.
 The api can `create short urls`, `create specific groups` as per organization structure and also can destribute them.
