@@ -123,11 +123,11 @@ public class UrlServiceImpl implements UrlService {
 
     @Override
     public List<TinyUrlsResponseDto> getAllTinyUrlsForCurrentUser() {
-        /*TUser tUser = tUserService.getMyCurrentUser();
+        TUser tUser = tUserService.getMyCurrentUser();
         if (tUser == null) {
             throw new UserNotFoundException();
-        }*/
-        return urlRepository.findAll()
+        }
+        return urlRepository.findAllByUser(tUser)
                 .stream().map(url -> TinyUrlsResponseDto.builder().tinyUrl(prepareTinyUrl(url))
                         .url(url.getUrl()).id(url.getId()).build()).collect(Collectors.toList());
 

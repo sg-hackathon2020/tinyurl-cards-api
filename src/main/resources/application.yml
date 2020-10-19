@@ -1,8 +1,8 @@
 spring:
   datasource:
-    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    url: jdbc:sqlserver://hackathondbserver.database.windows.net:1433;databaseName=db_url_cards_api
-    username: hackathon@hackathondbserver
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/tinyurldb
+    username: root
 
     password: Avni1234#@
     continue-on-error: false
@@ -87,7 +87,7 @@ security:
 server:
   port: ${PORT:8080}
 
-custom-host-url: "https://beyond-bookmarks-api.herokuapp.com"
+custom-host-url: "http://localhost:8080"
 
 tiny:
   custom:
